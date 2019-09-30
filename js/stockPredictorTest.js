@@ -1,13 +1,13 @@
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const xhr = new XMLHttpRequest();
 
-var myGlobalVars = {}
-let request = new XMLHttpRequest()
-let ticker = "AAPL"
-request.open('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/AAPL`,true)
-request.onload = function() {
-  // Begin accessing JSON data here
-  let data = JSON.parse(this.response)
-  console.log(data)
-}
+// completion callback
+xhr.addEventListener("load", () => {
+    console.log(xhr);
+    console.log(xhr.responseText);
+    const data = JSON.parse(xhr.responseText);
+    console.log(data.market_ask);
+});
 
-request.send()
+xhr.open("GET", "https://api.quoine.com/products/1");
+xhr.send();
