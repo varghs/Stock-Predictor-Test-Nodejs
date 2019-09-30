@@ -1,6 +1,7 @@
 const axios = require('axios')
-var brain = require('brain')
-axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/AAPL')
+const brain = require('brain.js')
+let ticker = "MSFT"
+axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${ticker}`)
   .then((response) => {
     var a = response.data;
     var dailyStats = a.historical.reverse();
