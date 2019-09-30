@@ -1,8 +1,7 @@
-const fetch = require('node-fetch');
-let data = [];
+const axios = require('axios')
 
-fetch("https://financialmodelingprep.com/api/v3/historical-price-full/AAPL")
-    .then(response => response.json())
-    .then(result => data.push(result));
-
-console.log(data)
+axios.get('https://financialmodelingprep.com/api/v3/historical-price-full/AAPL')
+  .then((response) => {
+    var a = response.data;
+    console.log(a.historical.reverse())
+  });
