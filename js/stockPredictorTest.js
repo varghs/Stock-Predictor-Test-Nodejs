@@ -6,7 +6,7 @@ let ticker = "AAPL"
 request.open('GET', `https://financialmodelingprep.com/api/v3/historical-price-full/AAPL`,true)
 request.onload = function() {
   // Begin accessing JSON data here
-  let data = this.response
+  let data = JSON.parse(this.response)
   let dailyStats = data.historical.reverse();
   console.log(dailyStats)
 
