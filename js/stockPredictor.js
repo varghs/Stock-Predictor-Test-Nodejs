@@ -47,8 +47,26 @@ axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${tick
     
       // console.log(scaleUp(net.run(trainingData[0])));
     
-      console.log(net.forecast([
+      console.log(JSON.stringify(net.forecast([
         trainingData[0][0],
         trainingData[0][1],
-      ], 3).map(scaleUp));
+        trainingData[0][2],
+        trainingData[0][3],
+        trainingData[0][4],
+        trainingData[1][0],
+        trainingData[1][1],
+        trainingData[1][2],
+        trainingData[1][3],
+        trainingData[1][4],
+        trainingData[2][0],
+        trainingData[2][1],
+        trainingData[2][2],
+        trainingData[2][3],
+        trainingData[2][4],
+        trainingData[3][0],
+        trainingData[3][1],
+        trainingData[3][2],
+        trainingData[3][3],
+        trainingData[3][4]
+      ], 3).map(scaleUp)));
   });
