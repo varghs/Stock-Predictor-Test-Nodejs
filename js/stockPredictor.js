@@ -1,6 +1,6 @@
-const axios = require('axios')
-const brain = require('brain.js')
-let ticker = "AMZN"
+const axios = require("axios");
+const brain = require("brain.js");
+let ticker = "AMZN";
 axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${ticker}`)
   .then((response) => {
     var a = response.data;
