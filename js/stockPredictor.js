@@ -1,29 +1,12 @@
 const axios = require("axios");
 const brain = require("brain.js");
+const scaler = require('minmaxscaler')
 let ticker = "AMZN";
 axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${ticker}`)
   .then((response) => {
     var a = response.data;
-    var dailyStats = a.historical.reverse();
+    var dailyStats = a.historical.reverse().map(obj => obj["close"]);
     // console.log(dailyStats)
-    function scaleDown(step) { // normalize
-      return {
-          open: step.open / 138,
-          high: step.high / 138,
-          low: step.low / 138,
-          close: step.close / 138
-      };
-    }
-  
-    function scaleUp(step) { // denormalize
-        return {
-          open: step.open * 138,
-          high: step.high * 138,
-          low: step.low * 138,
-          close: step.close * 138
-      };
-    }
-
     // format data
     function format(arr) {
       const toReturn = []
@@ -36,12 +19,10 @@ axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${tick
       }
       return toReturn
     }
-
-  
-    const scaledData = dailyStats.map(scaleDown);
+    
+    const scaledData = scaler.fit_transform(dailyStats);
   
     const trainingData = format(scaledData)
-  
     const net = new brain.recurrent.LSTMTimeStep({
       inputSize: 4,
       hiddenLayers: [8, 8],
@@ -55,6 +36,4 @@ axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${tick
     });
   
     // console.log(scaleUp(net.run(trainingData[0])));
-  
-    console.log(JSON.stringify(net.forecast(scaledData, 3).map(scaleUp)));
-  });
+    console.log(JSON.stringify(scaler.inverse_transform(net.forecast(scaledData, 3))));
