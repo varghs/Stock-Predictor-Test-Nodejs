@@ -19,12 +19,10 @@ axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${tick
       }
       return toReturn
     }
-
     
     const scaledData = scaler.fit_transform(dailyStats);
   
     const trainingData = format(scaledData)
-
     const net = new brain.recurrent.LSTMTimeStep({
       inputSize: 4,
       hiddenLayers: [8, 8],
@@ -38,6 +36,4 @@ axios.get(`https://financialmodelingprep.com/api/v3/historical-price-full/${tick
     });
   
     // console.log(scaleUp(net.run(trainingData[0])));
-  
     console.log(JSON.stringify(scaler.inverse_transform(net.forecast(scaledData, 3))));
-  });
