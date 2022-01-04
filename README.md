@@ -1,4 +1,4 @@
-<h1 align="center"># Stock Predictor for `Node.js`</h1>
+<h1 align="center">Stock Predictor for `Node.js`</h1>
 
 This is a neural network that aims to predict statistics for specific stocks.
 The project requires the `brain.js` and `axios` and `minmaxscaler` packages to run correctly.
